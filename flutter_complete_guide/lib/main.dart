@@ -10,26 +10,26 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
-
-class MyAppState extends State<MyApp> {
+// _ tells this this is a private class.
+class _MyAppState extends State<MyApp> {
   // State<MyApp> connects this MyAppState back to MyApp class.
 /**
  * State<> is a generic class. 
  * Whenever data is changed, MyApp can be recreated. But however, MyAppState is persistent. It is attached to MyApp.
  * MyAppState is not recreated whenever external data changes. Only MyApp is recreated.
  * */
-  int questionIndex = 0; // Called property. class level variable.
-  void answerQuestion() {
+  int _questionIndex = 0; // Called property. class level variable.
+  void _answerQuestion() {
     // This indicates flutter to rerender UI. It by defaults does not rerender on every click because that's how it should be. It should not be rendering unnecessarily.
     // This setState is provided by State<>.
     // This takes an anonymous function which is responsible for updating the state.
     setState(() {
-      questionIndex = (questionIndex+1) % 2;
+      _questionIndex = (_questionIndex+1) % 2;
     });
-    print(questionIndex);
+    print(_questionIndex);
   }
 
   @override // Decorator provided by flutter sdk, not necessary but we do write this.
@@ -47,12 +47,12 @@ class MyAppState extends State<MyApp> {
           // Use Row instead if you want to have them next to each other instead of one below another.
           children: [
             Text(questions[
-                questionIndex]), // This is the question text. Following would be the options for it.
+                _questionIndex]), // This is the question text. Following would be the options for it.
             RaisedButton(
               child: Text('Answer 1'),
               // This needs to be a pointer to the function to be executed.
               // Adding braces would execute this function. We don't want that. We want to give the control to flutter when to execute the function.
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             RaisedButton(
               child: Text('Answer 2'),
