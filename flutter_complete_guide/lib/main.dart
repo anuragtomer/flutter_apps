@@ -7,10 +7,28 @@ import 'package:flutter/material.dart';
 // Alternate to above 3 lines:
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  // State<MyApp> connects this MyAppState back to MyApp class.
+/**
+ * State<> is a generic class. 
+ * Whenever data is changed, MyApp can be recreated. But however, MyAppState is persistent. It is attached to MyApp.
+ * MyAppState is not recreated whenever external data changes. Only MyApp is recreated.
+ * */
   int questionIndex = 0; // Called property. class level variable.
   void answerQuestion() {
-    questionIndex = questionIndex + 1;
+    // This indicates flutter to rerender UI. It by defaults does not rerender on every click because that's how it should be. It should not be rendering unnecessarily.
+    // This setState is provided by State<>.
+    // This takes an anonymous function which is responsible for updating the state.
+    setState(() {
+      questionIndex = (questionIndex+1) % 2;
+    });
     print(questionIndex);
   }
 
@@ -28,7 +46,8 @@ class MyApp extends StatelessWidget {
         body: Column(
           // Use Row instead if you want to have them next to each other instead of one below another.
           children: [
-            Text(questions[questionIndex]), // This is the question text. Following would be the options for it.
+            Text(questions[
+                questionIndex]), // This is the question text. Following would be the options for it.
             RaisedButton(
               child: Text('Answer 1'),
               // This needs to be a pointer to the function to be executed.
