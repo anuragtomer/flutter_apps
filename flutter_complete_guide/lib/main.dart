@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './question.dart';
 // void main() {
 //   runApp(MyApp());
 // }
@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
     return _MyAppState();
   }
 }
+
 // _ tells this this is a private class.
 class _MyAppState extends State<MyApp> {
   // State<MyApp> connects this MyAppState back to MyApp class.
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     // This setState is provided by State<>.
     // This takes an anonymous function which is responsible for updating the state.
     setState(() {
-      _questionIndex = (_questionIndex+1) % 2;
+      _questionIndex = (_questionIndex + 1) % 2;
     });
     print(_questionIndex);
   }
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           // Use Row instead if you want to have them next to each other instead of one below another.
           children: [
-            Text(questions[
+            Question(questions[
                 _questionIndex]), // This is the question text. Following would be the options for it.
             RaisedButton(
               child: Text('Answer 1'),
@@ -73,3 +74,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+// General convention is that have only one widget per file. Only if the two
+// widgets work together, then you can have 2 widgets in the same file.
