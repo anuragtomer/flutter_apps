@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './question.dart';
+
+import './answer.dart';
 // void main() {
 //   runApp(MyApp());
 // }
@@ -49,25 +51,9 @@ class _MyAppState extends State<MyApp> {
           children: [
             Question(questions[
                 _questionIndex]), // This is the question text. Following would be the options for it.
-            RaisedButton(
-              child: Text('Answer 1'),
-              // This needs to be a pointer to the function to be executed.
-              // Adding braces would execute this function. We don't want that. We want to give the control to flutter when to execute the function.
-              onPressed: _answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              // Anonymous function with just single line. Thus using a smaller version of writing function.
-              onPressed: () => print('Answer 2 chosen.'),
-            ),
-            RaisedButton(
-              child: Text('Answer 3'),
-              // Again anonymous function but with multiple lines hence using another way of writing function.
-              onPressed: () {
-                print('Answer 3 chosen.');
-                print('This is a longer function.');
-              }, // Adding () here would execute this function here. We don't want that. We want to give control to flutter when to run this.
-            ),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
