@@ -32,14 +32,19 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _questionIndex = (_questionIndex + 1) % 2;
     });
-    print(_questionIndex);
   }
 
   @override // Decorator provided by flutter sdk, not necessary but we do write this.
   Widget build(BuildContext context) {
     var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answerText': ['Red', 'Blue', 'Green', 'Others']
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answerText': ['Rabbit', 'Pig', 'Leopard', 'Gadha', 'You']
+      }
     ];
     return MaterialApp(
       home: Scaffold(
@@ -49,11 +54,14 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           // Use Row instead if you want to have them next to each other instead of one below another.
           children: [
-            Question(questions[
-                _questionIndex]), // This is the question text. Following would be the options for it.
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            Question(questions[_questionIndex][
+                'questionText']), // This is the question text. Following would be the options for it.
+            ...(questions[_questionIndex]['answerText'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList(),
+            // ... takes a list, and expand it to match what is in the parent object.
+            // So here, it takes a list and adds it to childred as individual elements.
           ],
         ),
       ),
